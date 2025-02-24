@@ -1,93 +1,184 @@
-**Week 2: Express.js Fundamentals Assignment**
+# Express.js Assignment
 
-**Objective:**
+## Introduction
+This project is a simple **RESTful API** built using **Express.js**. It demonstrates the fundamental concepts of Express.js, including **routing, middleware, controllers, environment variables, and error handling**. The API provides endpoints for managing **users** and **products**, supporting CRUD (Create, Read, Update, Delete) operations.
 
-- Apply Express.js concepts learned throughout the week.
-- Develop hands-on experience with creating routes, middleware, and API endpoints.
-- Understand and implement RESTful APIs.
+## Features
+- Organized **MVC structure** (Routes, Controllers, Middleware)
+- **Custom Middleware** for logging requests
+- **Environment Variables** support using `dotenv`
+- **Global Error Handling Middleware**
+- **RESTful API** implementation with proper status codes
 
-**Instructions:**
+## Prerequisites
+Before running the project, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (Latest LTS recommended)
+- [NPM](https://www.npmjs.com/) (Comes with Node.js)
 
-1. **Setup Express.js Project:**
+## Installation and Setup
 
-   - Install Node.js using NVM.
-   - Create a new project folder named `express-assignment`.
-   - Initialize a Node.js project using:
-     ```sh
-     npm init -y
-     ```
-   - Install necessary dependencies:
-     ```sh
-     npm install express dotenv
-     ```
+### 1. Clone the Repository
+```sh
+git clone https://github.com/PLP-Full-Stack-Development-MERN/week-2-express-js-fundamentals-assignment-kaidavi.git
+cd express-assignment
+```
 
-2. **Project Structure:**
+### 2. Install Dependencies
+```sh
+npm install
+```
 
-   - Organize your project files with a clear folder structure:
-     ```
-     express-assignment/
-     │-- routes/
-     │    ├── userRoutes.js
-     │    ├── productRoutes.js
-     │-- middleware/
-     │    ├── logger.js
-     │-- controllers/
-     │    ├── userController.js
-     │    ├── productController.js
-     │-- index.js
-     │-- package.json
-     │-- README.md
-     │-- .env
-     ```
+### 3. Create a `.env` File
+Create a `.env` file in the root directory and add:
+```
+PORT=5000
+```
 
-3. **Create Routes:**
+### 4. Run the Server
+#### Start with Node.js:
+```sh
+node index.js
+```
+#### Start with Nodemon (for auto-restart on changes):
+```sh
+npm install -g nodemon
+nodemon index.js
+```
 
-   - Create `userRoutes.js` and `productRoutes.js` inside the `routes/` folder.
-   - Implement RESTful routes for users and products (GET, POST, PUT, DELETE).
-   - Ensure proper usage of route parameters and query strings.
+## Project Structure
+```
+express-assignment/
+│-- routes/
+│    ├── userRoutes.js
+│    ├── productRoutes.js
+│-- middleware/
+│    ├── logger.js
+│-- controllers/
+│    ├── userController.js
+│    ├── productController.js
+│-- middleware/
+│    ├── errorHandler.js
+│-- index.js
+│-- package.json
+│-- README.md
+│-- .env
+```
 
-4. **Implement Middleware:**
+## API Endpoints
 
-   - Create a custom middleware function in `middleware/logger.js` to log request details (method, URL, timestamp).
-   - Apply middleware globally to all routes.
+### **Users API**
+| Method | Endpoint        | Description              |
+|--------|----------------|--------------------------|
+| GET    | `/users`       | Get all users           |
+| GET    | `/users/:id`   | Get a user by ID        |
+| POST   | `/users`       | Create a new user       |
+| PUT    | `/users/:id`   | Update user details     |
+| DELETE | `/users/:id`   | Delete a user          |
 
-5. **Develop Controllers:**
+#### Example Request (Create User):
+```sh
+POST /users
+Content-Type: application/json
 
-   - Create controller functions in `controllers/userController.js` and `controllers/productController.js`.
-   - Implement business logic to handle requests and responses.
+{
+  "name": "Alice",
+  "email": "alice@example.com"
+}
+```
 
-6. **Environment Variables:**
+#### Example Response:
+```json
+{
+  "id": 3,
+  "name": "Alice",
+  "email": "alice@example.com"
+}
+```
 
-   - Use `dotenv` to manage environment variables.
-   - Define variables such as `PORT` in the `.env` file and access them inside the application.
+### **Products API**
+| Method | Endpoint         | Description               |
+|--------|-----------------|---------------------------|
+| GET    | `/products`     | Get all products         |
+| GET    | `/products/:id` | Get a product by ID      |
+| POST   | `/products`     | Create a new product     |
+| PUT    | `/products/:id` | Update product details   |
+| DELETE | `/products/:id` | Delete a product        |
 
-7. **Error Handling:**
+#### Example Request (Create Product):
+```sh
+POST /products
+Content-Type: application/json
 
-   - Implement a global error-handling middleware to catch and respond to errors gracefully.
+{
+  "name": "Laptop",
+  "price": 1200
+}
+```
 
-8. **Testing:**
+#### Example Response:
+```json
+{
+  "id": 3,
+  "name": "Laptop",
+  "price": 1200
+}
+```
 
-   - Run the server using:
-     ```sh
-     node index.js
-     ```
-   - Test API endpoints using Postman or cURL.
-   - Verify routes, middleware functionality, and error handling.
+## Middleware
 
-9. **Documentation:**
+### **1. Logger Middleware** (`middleware/logger.js`)
+- Logs each request with method, URL, and timestamp.
+- Applied globally to all routes.
 
-   - Add a `README.md` with instructions on setting up and running the project.
-   - Document available API endpoints with descriptions and example requests.
+### **2. Global Error Handling Middleware** (`middleware/errorHandler.js`)
+- Catches any unhandled errors.
+- Returns structured error responses.
 
-10. **Submission:**
+#### Example Error Response:
+```json
+{
+  "success": false,
+  "message": "User not found"
+}
+```
 
-   - Push your code to your GitHub repository.
+## Testing the API
+You can test the API using **Postman** or **cURL**.
 
-**Evaluation Criteria:**
+### **Using Postman:**
+1. Open Postman and create a new request.
+2. Enter the API endpoint (e.g., `http://localhost:5000/users`).
+3. Select the HTTP method (GET, POST, PUT, DELETE).
+4. Add JSON data in the body (for POST and PUT requests).
+5. Click "Send" and observe the response.
 
-- Correct implementation of Express routes and middleware.
-- Proper error handling and logging.
-- Clean project structure and code organization.
-- Detailed documentation with clear instructions.
-- Successful testing of all endpoints.
+### **Using cURL:**
+```sh
+curl -X GET http://localhost:5000/users
+```
+
+## Error Handling
+- If an endpoint is invalid, the server responds with `404 Not Found`.
+- If an internal error occurs, a `500 Internal Server Error` is returned.
+- Errors are logged in the console.
+
+## Deployment (Optional)
+You can deploy the project using **Heroku, Vercel, or DigitalOcean**.
+
+### **Deploy to Heroku**
+```sh
+heroku create express-assignment
+heroku config:set PORT=5000
+heroku git:remote -a express-assignment
+git push heroku main
+```
+
+## Contribution
+Feel free to contribute by submitting a pull request or reporting issues.
+
+## Author
+Your Name
+
+## License
+This project is licensed under the **MIT License**.
 
