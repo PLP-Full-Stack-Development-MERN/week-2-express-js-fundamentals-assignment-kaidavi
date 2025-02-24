@@ -177,7 +177,7 @@ git push heroku main
 Feel free to contribute by submitting a pull request or reporting issues.
 
 ## Author
-Your Name
+David Kai
 
 ## License
 This project is licensed under the **MIT License**.
